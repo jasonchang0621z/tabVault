@@ -18,6 +18,8 @@ export function useWorkspaces() {
     return response.workspace as Workspace;
   };
 
+  const isPro = license?.isPro ?? false;
+
   const restore = async (workspace: Workspace, lazyLoad = true) => {
     const closeOnRestore = settings?.closeOnRestore ?? false;
     const newWindow = settings?.restoreInNewWindow ?? true;
@@ -28,6 +30,7 @@ export function useWorkspaces() {
         lazyLoad,
         newWindow,
         closeOnRestore,
+        restoreGroups: isPro,
       },
     });
     if (!response.success) throw new Error(response.error);
@@ -41,7 +44,6 @@ export function useWorkspaces() {
     await updateWorkspaceName(id, name);
   };
 
-  const isPro = license?.isPro ?? false;
   const limit = isPro ? Infinity : FREE_WORKSPACE_LIMIT;
   const canSave = (workspaces?.length ?? 0) < limit;
 

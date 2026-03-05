@@ -1,4 +1,4 @@
-export const FREE_WORKSPACE_LIMIT = 10;
+export const FREE_WORKSPACE_LIMIT = 3;
 export const APP_NAME = 'TabVault';
 
 /** Chrome tab group color palette (matches Chrome's actual colors) */

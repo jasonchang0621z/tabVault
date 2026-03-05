@@ -14,19 +14,18 @@ TabVault lets you save your entire browser window — tabs and tab groups — as
 Researching a project across 20 tabs? Working on multiple clients? TabVault lets you save everything, close your tabs, and pick up exactly where you left off. Tab groups are preserved with their names and colors.
 
 **Features:**
-• Save all tabs and tab groups in one click
+• Save all tabs in one click
 • Restore workspaces in a new window or current window
-• Tab group support — colors, names, and collapsed state preserved
 • Lazy loading — restored tabs load on demand to save memory
 • Search and filter saved workspaces
 • Rename and organize workspaces
-• Export/Import workspaces as JSON for backup or sharing
 • Keyboard shortcut (Alt+S) for quick save
-• Auto-backup (Pro) — daily automatic saves
 
-**Free vs Pro:**
-• Free: Save up to 10 workspaces
-• Pro ($19 one-time): Unlimited workspaces + auto-backup
+**Pro ($19 one-time) unlocks:**
+• Unlimited workspaces (free: 3)
+• Tab group restore — colors, names, and collapsed state preserved
+• Export/Import workspaces as JSON for backup or sharing
+• Auto-backup — daily automatic saves
 
 Lightweight, fast, and privacy-friendly. All data stays in your browser — nothing is sent to external servers.
 

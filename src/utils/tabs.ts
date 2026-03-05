@@ -65,7 +65,7 @@ export async function captureCurrentWindow(): Promise<{
  */
 export async function restoreWorkspace(
   workspace: Workspace,
-  options: { lazyLoad: boolean; newWindow: boolean; closeOnRestore: boolean },
+  options: { lazyLoad: boolean; newWindow: boolean; closeOnRestore: boolean; restoreGroups: boolean },
 ): Promise<void> {
   let windowId: number;
   let defaultTabId: number | undefined;
@@ -117,21 +117,23 @@ export async function restoreWorkspace(
     await chrome.tabs.remove(defaultTabId);
   }
 
-  // Phase 2: Recreate tab groups with metadata
-  for (const savedGroup of workspace.tabGroups) {
-    const tabIds = groupMapping.get(savedGroup.id);
-    if (!tabIds || tabIds.length === 0) continue;
+  // Phase 2: Recreate tab groups with metadata (Pro only)
+  if (options.restoreGroups) {
+    for (const savedGroup of workspace.tabGroups) {
+      const tabIds = groupMapping.get(savedGroup.id);
+      if (!tabIds || tabIds.length === 0) continue;
 
-    const groupId = await chrome.tabs.group({
-      tabIds: tabIds as [number, ...number[]],
-      createProperties: { windowId },
-    });
+      const groupId = await chrome.tabs.group({
+        tabIds: tabIds as [number, ...number[]],
+        createProperties: { windowId },
+      });
 
-    await chrome.tabGroups.update(groupId as number, {
-      title: savedGroup.title,
-      color: savedGroup.color,
-      collapsed: savedGroup.collapsed,
-    });
+      await chrome.tabGroups.update(groupId as number, {
+        title: savedGroup.title,
+        color: savedGroup.color,
+        collapsed: savedGroup.collapsed,
+      });
+    }
   }
 
   // Phase 3: Lazy loading — discard tabs to save memory

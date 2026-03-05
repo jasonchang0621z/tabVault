@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { X } from 'lucide-react';
-import { activateLicense } from '../utils/license';
+import { X, ExternalLink } from 'lucide-react';
+import { activateLicense, getStoreUrl } from '../utils/license';
 
 interface Props {
   onActivated: () => void;
@@ -28,11 +28,11 @@ export function ProActivationDialog({ onActivated, onCancel }: Props) {
     setError('');
     setActivating(true);
     try {
-      const success = await activateLicense(key.trim().toUpperCase());
-      if (success) {
+      const result = await activateLicense(key.trim());
+      if (result.success) {
         onActivated();
       } else {
-        setError('Invalid license key. Format: TV-XXXX-XXXX-XXXX');
+        setError(result.error ?? 'Invalid license key');
       }
     } finally {
       setActivating(false);
@@ -49,15 +49,37 @@ export function ProActivationDialog({ onActivated, onCancel }: Props) {
           </button>
         </div>
 
+        <p className="text-xs text-gray-500 mb-3">
+          Unlock unlimited workspaces, tab group restore, export/import, and auto-backup.
+        </p>
+
+        <a
+          href={getStoreUrl()}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center gap-1.5 w-full px-3 py-2 text-xs font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors mb-3"
+        >
+          <ExternalLink className="w-3.5 h-3.5" />
+          Buy Pro — $19 one-time
+        </a>
+
+        <div className="relative mb-3">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-gray-200" />
+          </div>
+          <div className="relative flex justify-center">
+            <span className="bg-white px-2 text-[10px] text-gray-400">Already purchased?</span>
+          </div>
+        </div>
+
         <form onSubmit={handleSubmit}>
           <input
             ref={inputRef}
             type="text"
             value={key}
             onChange={(e) => setKey(e.target.value)}
-            placeholder="TV-XXXX-XXXX-XXXX"
+            placeholder="Enter your license key"
             className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent mb-1 font-mono"
-            autoFocus
           />
           {error && (
             <p className="text-xs text-red-500 mb-2">{error}</p>
@@ -75,7 +97,7 @@ export function ProActivationDialog({ onActivated, onCancel }: Props) {
               disabled={!key.trim() || activating}
               className="px-3 py-1.5 text-xs font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
-              {activating ? 'Activating...' : 'Activate'}
+              {activating ? 'Verifying...' : 'Activate'}
             </button>
           </div>
         </form>

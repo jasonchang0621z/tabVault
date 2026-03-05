@@ -13,7 +13,7 @@ interface SaveMessage {
 interface RestoreMessage {
   type: 'RESTORE_WORKSPACE';
   workspace: Workspace;
-  options: { lazyLoad: boolean; newWindow: boolean; closeOnRestore: boolean };
+  options: { lazyLoad: boolean; newWindow: boolean; closeOnRestore: boolean; restoreGroups: boolean };
 }
 
 type Message = SaveMessage | RestoreMessage;
