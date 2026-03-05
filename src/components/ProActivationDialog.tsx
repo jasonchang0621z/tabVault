@@ -60,7 +60,7 @@ export function ProActivationDialog({ onActivated, onCancel }: Props) {
           className="flex items-center justify-center gap-1.5 w-full px-3 py-2 text-xs font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors mb-3"
         >
           <ExternalLink className="w-3.5 h-3.5" />
-          Buy Pro — $19 one-time
+          Buy Pro — $2 one-time
         </a>
 
         <div className="relative mb-3">

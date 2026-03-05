@@ -10,7 +10,7 @@ Chrome extension for saving and restoring tab workspaces with native tab group s
 - Search, rename, and organize saved workspaces
 - Keyboard shortcut (Alt+S) for quick save
 
-### Pro ($19 one-time)
+### Pro ($2 one-time)
 
 - Unlimited workspaces (free: 3)
 - Tab group restore with colors, names, and collapsed state

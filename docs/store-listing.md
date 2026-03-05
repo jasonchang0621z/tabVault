@@ -21,7 +21,7 @@ Researching a project across 20 tabs? Working on multiple clients? TabVault lets
 • Rename and organize workspaces
 • Keyboard shortcut (Alt+S) for quick save
 
-**Pro ($19 one-time) unlocks:**
+**Pro ($2 one-time) unlocks:**
 • Unlimited workspaces (free: 3)
 • Tab group restore — colors, names, and collapsed state preserved
 • Export/Import workspaces as JSON for backup or sharing
