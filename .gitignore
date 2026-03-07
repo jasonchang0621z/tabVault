@@ -4,6 +4,7 @@ node_modules/
 dist/
 *.zip
 .DS_Store
+.env
 .demo-temp/
 demo-timings.json
 demo-final.mp4

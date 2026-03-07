@@ -8,7 +8,7 @@
  * and merges everything into demo-final.mp4.
  *
  * Prerequisites:
- *   - ELEVENLABS_API_KEY environment variable (or hardcoded below)
+ *   - ELEVENLABS_API_KEY environment variable (required)
  *   - demo-popup.mp4 (from demo:record)
  *   - demo-timings.json (from demo:record)
  *   - ffmpeg installed
@@ -34,7 +34,12 @@ const TIMINGS_FILE = path.resolve(ROOT, 'demo-timings.json');
 const OUTPUT_VIDEO = path.resolve(ROOT, 'demo-final.mp4');
 
 // ===== ElevenLabs Config =====
-const ELEVENLABS_API_KEY = process.env.ELEVENLABS_API_KEY || '***REMOVED***';
+const ELEVENLABS_API_KEY = process.env.ELEVENLABS_API_KEY;
+if (!ELEVENLABS_API_KEY) {
+  console.error('❌ Missing ELEVENLABS_API_KEY environment variable.');
+  console.error('   Usage: ELEVENLABS_API_KEY=sk_xxx npm run demo:narrate');
+  process.exit(1);
+}
 const VOICE_ID = process.env.ELEVENLABS_VOICE_ID || 'SAz9YHcvj6GT2YYXdXww'; // "River" — relaxed, neutral, informative
 const MODEL_ID = 'eleven_multilingual_v2';
 
