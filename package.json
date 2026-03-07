@@ -14,7 +14,10 @@
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix",
     "format": "prettier --write 'src/**/*.{ts,tsx,css,json}'",
-    "postinstall": "wxt prepare"
+    "postinstall": "wxt prepare",
+    "demo:record": "wxt build && node scripts/record-demo.mjs",
+    "demo:narrate": "node scripts/add-narration.mjs",
+    "demo:full": "npm run demo:record && npm run demo:narrate"
   },
   "dependencies": {
     "@wxt-dev/module-react": "^1.1.5",
@@ -35,6 +38,8 @@
     "jsdom": "^28.1.0",
     "lucide-react": "^0.577.0",
     "prettier": "^3.8.1",
+    "puppeteer": "^19.0.0",
+    "puppeteer-screen-recorder": "^3.0.6",
     "tailwindcss": "^4.2.1",
     "typescript": "^5.9.3",
     "vitest": "^4.0.18"

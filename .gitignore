@@ -4,3 +4,12 @@ node_modules/
 dist/
 *.zip
 .DS_Store
+.demo-temp/
+demo-timings.json
+demo-final.mp4
+demo-popup.mp4
+demo.mp4
+demo.gif
+demo-f*.png
+demo-v*.png
+demo-frame*.png

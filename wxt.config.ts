@@ -19,6 +19,10 @@ export default defineConfig({
       128: 'icon-128.png',
     },
     commands: {
+      '_execute_action': {
+        suggested_key: { default: 'Alt+T' },
+        description: 'Open TabVault popup',
+      },
       'save-workspace': {
         suggested_key: { default: 'Alt+S' },
         description: 'Save current tabs as workspace',
