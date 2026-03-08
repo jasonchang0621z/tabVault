@@ -16,25 +16,22 @@ export async function saveWorkspace(name: string, options?: { isAutoBackup?: boo
 
   const { tabs, tabGroups } = await captureCurrentWindow();
   const now = new Date().toISOString();
-  const today = now.slice(0, 10);
 
-  // For auto-backups, replace existing same-day backup instead of creating a new one
+  // For auto-backups, keep up to MAX_AUTO_BACKUPS and rotate out the oldest
+  const MAX_AUTO_BACKUPS = 3;
   if (options?.isAutoBackup) {
-    const existingIndex = workspaces.findIndex(
-      (w) => w.isAutoBackup && w.createdAt.slice(0, 10) === today,
-    );
-
-    if (existingIndex !== -1) {
-      workspaces[existingIndex] = {
-        ...workspaces[existingIndex],
-        name,
-        updatedAt: now,
-        tabs,
-        tabGroups,
-        tabCount: tabs.length,
-      };
-      await workspacesStorage.setValue(workspaces);
-      return workspaces[existingIndex];
+    const autoBackups = workspaces.filter((w) => w.isAutoBackup);
+    if (autoBackups.length >= MAX_AUTO_BACKUPS) {
+      // Remove oldest auto-backups to stay within limit
+      const sorted = autoBackups.sort(
+        (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+      );
+      const toRemove = sorted.slice(0, autoBackups.length - MAX_AUTO_BACKUPS + 1);
+      const removeIds = new Set(toRemove.map((w) => w.id));
+      const filtered = workspaces.filter((w) => !removeIds.has(w.id));
+      await workspacesStorage.setValue(filtered);
+      // Re-read so the new workspace is appended to the cleaned list
+      workspaces.splice(0, workspaces.length, ...filtered);
     }
   }
 

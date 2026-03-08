@@ -21,9 +21,22 @@ export function mapTabsToSavedData(
     };
   });
 
-  // Map tabs, translating group IDs and filtering chrome:// URLs
+  // Map tabs, translating group IDs and filtering internal URLs
+  const INTERNAL_PREFIXES = [
+    'chrome://',
+    'chrome-extension://',
+    'chrome-untrusted://',
+    'edge://',
+    'about:',
+    'brave://',
+    'opera://',
+    'vivaldi://',
+  ];
   const savedTabs: SavedTab[] = chromeTabs
-    .filter((tab) => tab.url && !tab.url.startsWith('chrome://'))
+    .filter(
+      (tab) =>
+        tab.url && !INTERNAL_PREFIXES.some((prefix) => tab.url!.startsWith(prefix)),
+    )
     .map((tab) => ({
       url: tab.url!,
       title: tab.title ?? '',

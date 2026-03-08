@@ -47,22 +47,22 @@ const FORCE = process.argv.includes('--force');
 
 // ===== Scene Narration Text (English) =====
 const NARRATIONS = {
-  empty_state:     'Meet TabVault — save and restore your browser tabs in one click.',
-  save_frontend:   'Save your current tabs as a workspace.',
-  expand_collapse: 'Expand to see the tabs and groups inside.',
-  restore:         'Close all your tabs — then restore everything with one click.',
-  save_backend:    'Create multiple workspaces for different projects.',
-  save_design:     'The free plan includes up to three workspaces.',
-  expand_multiple: 'Tab groups are fully preserved — names, colors, and all.',
-  search:          'Search to quickly find any workspace.',
-  rename:          'Rename workspaces with a click.',
-  settings:        'Customize settings like lazy loading and close on restore.',
-  limit_warning:   'Hit the limit? You\'ll be prompted to upgrade.',
-  pro_activation:  'Pro is just two dollars. Enter your key to unlock.',
-  post_pro_save:   'With Pro, save unlimited workspaces.',
-  pro_settings:    'Pro unlocks auto backup, export, and import.',
-  delete:          'Delete workspaces you no longer need.',
-  end:             'TabVault — tab management, simplified.',
+  empty_state:     'Here\'s TabVault — a simple way to save and restore all your browser tabs.',
+  save_frontend:   'Let\'s try it out. Hit save, give it a name, and that\'s it.',
+  expand_collapse: 'You can expand any workspace to see exactly what\'s inside.',
+  restore:         'Now watch this — we\'ll close everything, then bring it all back with one click.',
+  save_backend:    'You can create different workspaces for each project you\'re working on.',
+  save_design:     'On the free plan, you get up to three saved workspaces.',
+  expand_multiple: 'And check this out — all your tab groups are perfectly preserved. Colors, names, everything.',
+  search:          'Got a lot of workspaces? Just type to find what you need.',
+  rename:          'Renaming is easy — just click the pencil icon and type away.',
+  settings:        'There are a few handy settings here, like lazy loading to save memory, and auto-close on restore.',
+  limit_warning:   'Try saving a fourth one and you\'ll hit the free plan limit.',
+  pro_activation:  'Pro is a one-time purchase for just two dollars. Pop in your license key and you\'re good to go.',
+  post_pro_save:   'Now with Pro, there\'s no limit. Save as many workspaces as you want.',
+  pro_settings:    'Pro also gives you automatic backups, plus export and import.',
+  delete:          'And when you\'re done with a workspace, just delete it.',
+  end:             'That\'s TabVault — simple, fast tab management for Chrome.',
 };
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -228,7 +228,7 @@ function mergeVideoAudio(videoPath, audioPath) {
     `-i "${audioPath}"`,
     '-c:v copy',         // Copy video stream (no re-encode)
     '-c:a aac -b:a 128k', // Encode audio as AAC
-    '-shortest',         // Match shortest stream
+    '-map 0:v:0 -map 1:a:0', // Use video duration (don't truncate if audio is shorter)
     `"${OUTPUT_VIDEO}"`,
   ].join(' ');
 
